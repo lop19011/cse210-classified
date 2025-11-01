@@ -9,9 +9,9 @@ class Program
         Random randomNumber = new Random();
         int magic = randomNumber.Next(1, 101);
 
-        Console.Write("what is your guess? ");
-        string magicGuess = Console.ReadLine();
-        int guess = int.Parse(magicGuess);
+        int guess = -1;
+
+   
 
         while (guess != magic)
         {
