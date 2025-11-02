@@ -4,7 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-
+        // Adding numbers with a list
 
         Console.WriteLine("Enter a list of numbers, type 0 when finished");
 
@@ -15,7 +15,7 @@ class Program
 
         while (input != 0)
         {
-            Console.Write("What is your guess? ");
+            Console.Write("Type in your number: ");
             string userInput = Console.ReadLine();
             input = int.Parse(userInput);
             numbers.Add(input);
