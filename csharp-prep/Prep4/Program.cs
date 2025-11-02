@@ -28,7 +28,18 @@ class Program
             totalSum += sum;
         }
 
-         Console.WriteLine($"The total sum of your numbers is: {totalSum}");
+        Console.WriteLine($"The total sum of your numbers is: {totalSum}");
+
+        double average = (double)totalSum / numbers.Count;
+
+        Console.WriteLine($"The average of your numbers is: {average}");
+
+        int largest = numbers.Max();
+
+        Console.WriteLine($"The highest number on your list is: {largest}");
+    
+        
+
 
 
 
