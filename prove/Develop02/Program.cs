@@ -91,8 +91,8 @@ namespace Journal
 
                         if(int.TryParse(newSelection, out int fileNumber) && fileNumber > 0 && fileNumber <= textFiles.Length)
                         {
-                            string selection = textFiles[fileNumber - 1];
-                            NewJournal.LoadFile(selection);
+                            string filepath = textFiles[fileNumber - 1];
+                            NewJournal.LoadFile(filepath);
                             NewJournal.Display();
 
                         }
