@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace Journal
 {
+    // Brother Matthew helped me a lot in the program, since I was struggling pulling and setting everything together.
     class Program
     {
         static void Main(string[] args)
@@ -30,6 +31,8 @@ namespace Journal
 
                 switch (selection)
                 {
+                    // Changed all the case numbers, since it was not working with the "." after the number.
+                    // Brother Matthew share with me several system functions to help me with the file handling and directory checking, like: Directory.Exists, Directory.CreateDirectory, Path.Combine, Path.GetFileName, and Directory.GetFiles.
                     case "1":
                         string selectionOne = newPrompt.RandomPrompt();
                         Console.WriteLine($"New entry: {selectionOne}");
@@ -37,6 +40,7 @@ namespace Journal
                         string inputOne = Console.ReadLine();
                         if (inputOne != null)
                         {
+                            // Asked ChatGPT how to get the current date and time and format, it recommended me to use DateTime.Now.ToString("yyyy-MM-dd HH:mm")
                             string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
                             Entry case1entry = new Entry(date, selectionOne, inputOne);
                             NewJournal.AddEntry(case1entry);
@@ -44,7 +48,7 @@ namespace Journal
 
                         }
                         break;
-
+                    // Was not pulling the Display method from the JournalClass, so I corrected it from NewJournal.DisplayAll(); to NewJournal.Display();
                     case "2":
                         NewJournal.Display();
                         break;
@@ -54,6 +58,7 @@ namespace Journal
                         string SaveFile = Console.ReadLine();
                         if (!string.IsNullOrWhiteSpace(SaveFile))
                         {
+                            // Added check to ensure the file name ends with .txt , since I was having issues loading the files later.Brother Matthew helped me with this.
                             string nameOfFile = SaveFile.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)
                             ? SaveFile
                             : SaveFile + ".txt";
@@ -63,11 +68,13 @@ namespace Journal
                         }
 
                         break;
-
+                    // this is not functioning correctly, filw is not being loaded. Brother Matthew helped me with several parts of this case. but is still not working properly.
                     case "4":
                         Console.WriteLine("\nJournals:");
-                        string SavedJournals = Path.Combine("saved_journals");
+                        string SavedJournals = Path.Combine("Develop02");
                         if (!Directory.Exists(SavedJournals))
+
+                        // I have to revise this line, since I dont think is creating the directory properly.
                         {
                             Directory.CreateDirectory(SavedJournals);
                         }
@@ -88,6 +95,8 @@ namespace Journal
 
                         Console.Write("\nSelect a file: ");
                         string newSelection = Console.ReadLine();
+
+                        // Brother Matthew shared the TryParse method to help me with the file selection and avoid errors, it also helped add the && conditions to check if the number was in range.
 
                         if(int.TryParse(newSelection, out int fileNumber) && fileNumber > 0 && fileNumber <= textFiles.Length)
                         {

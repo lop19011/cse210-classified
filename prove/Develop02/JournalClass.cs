@@ -15,7 +15,7 @@ namespace Journal
         {
             _lines.Add(entry);
         }
-
+        // made correction to the Display method, I was using a different method to display the journal entries.
         public void Display()
         {
             if (_lines.Count == 0)
@@ -33,6 +33,7 @@ namespace Journal
 
         }
 
+        // brother Matthew helped with this method, since I was struggling to figure out how to save the journal entries to a file.
         public void SaveFile(string file)
         {
             using (StreamWriter write = new StreamWriter(file))
@@ -47,7 +48,7 @@ namespace Journal
 
             
         }
-
+        // brother Matthew helped with this method, I did not had the if statement with the File.Exists to check if the file existed before loading it.
 
         public void LoadFile(string file)
         {
@@ -73,7 +74,7 @@ namespace Journal
                 }
             }
 
-        
+            //moved the Console.WriteLine("Journal loaded"); outside of the foreach loop to avoid repeating the message multiple times.
             Console.WriteLine("Journal loaded");
 
         }
