@@ -6,18 +6,25 @@ namespace ScriptureMemorizer
     public class Word
     {
         private string _text;
-        public bool isHidden;
+        private bool _isHidden;
+        
+        // Added a public bool property to access the private variable _isHidden
+        public bool IsHidden
+        {
+            get {return _isHidden;}
+            set {_isHidden = value;}
+        }
 
         public Word(string text)
         {
             _text = text;
-            isHidden = false;
+            _isHidden = false;
             
 
         }
         public void Render()
         {
-            if (isHidden)
+            if (_isHidden)
             {
                 Console.Write(new string('_', _text.Length));
 

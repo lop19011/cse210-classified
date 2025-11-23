@@ -30,7 +30,7 @@ namespace ScriptureMemorizer
             int availableWords = 0;
             foreach (Word word in _words)
             {
-                if (!word.isHidden)
+                if (!word.IsHidden)
                 {
                     availableWords++;
                 }
@@ -43,9 +43,9 @@ namespace ScriptureMemorizer
             {
                 int index = random.Next(_words.Count);
 
-                if (!_words[index].isHidden)
+                if (!_words[index].IsHidden)
                 {
-                    _words[index].isHidden = true;
+                    _words[index].IsHidden = true;
                     hidden++;
                 }
             }
@@ -56,7 +56,7 @@ namespace ScriptureMemorizer
         {
             foreach (Word word in _words)
             {
-                if (!word.isHidden)
+                if (!word.IsHidden)
                 {
                     return false;
                 }
