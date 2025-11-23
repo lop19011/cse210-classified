@@ -1,0 +1,36 @@
+
+Class: Scriputre
+
+_ref: string
+_text: List<word>
+HideRandomWords(count: int) :void
+RenderDisplay(): string
+IsCompleteHidden(): bool
+
+
+
+Class: Scripure refrence
+
+_book: string
+_chapter: int
+_verse: int
+_secondVerse: int
+
+Reference(book: string, chapter:int, verse: int)
+Reference(book; string, chapter: int, secondVerse:int)
+DisplayText(): string
+
+
+
+Class: Word
+
+_text: string
+_hidden: bool
+
+Word(): string
+Hidden(): void
+IsHidden(): bool
+Show(): void
+GetText(): string
+
+
