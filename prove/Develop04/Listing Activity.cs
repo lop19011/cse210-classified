@@ -5,6 +5,8 @@ namespace Mindfulness
     public class ListingActivity : Activity
     {
         private List<string> _prompts;
+
+        // added to keep amount of items listed and display at the end
         private int _itemCount;
 
         
@@ -25,7 +27,7 @@ namespace Mindfulness
         {       Console.WriteLine();
                 Console.WriteLine("List as many responses as you can to the following question: ");
                 Console.WriteLine($"{GetRandomPrompt()}");
-                Console.WriteLine("Starting in: ");
+                Console.Write("Starting in: ");
                 CountDown(5);
                 Console.ReadLine();
 
