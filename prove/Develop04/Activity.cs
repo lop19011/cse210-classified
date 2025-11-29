@@ -80,6 +80,12 @@ namespace Mindfulness
             {
                 Console.Write(i);
                 System.Threading.Thread.Sleep(1000);
+
+                if (i >= 10)
+                {
+                    Console.Write("\b\b \b\b" );
+                }
+                else
                 Console.Write("\b \b");
             }
 
