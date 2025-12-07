@@ -22,6 +22,7 @@ namespace EternalQuest
 
         private string DisplayMenu()
         {
+            Console.WriteLine();
             Console.WriteLine("Menu Options: ");
             Console.WriteLine("1. Create New Goal");
             Console.WriteLine("2. List Goals");
@@ -29,6 +30,7 @@ namespace EternalQuest
             Console.WriteLine("4. Load Goals");
             Console.WriteLine("5. Record Event");
             Console.WriteLine("6. Exit");
+            Console.WriteLine();
             Console.Write("Select an option from the menu: ");
             return Console.ReadLine();
 
@@ -36,14 +38,16 @@ namespace EternalQuest
 
         private void ListGoalName()
         {
-            for (int i = 0; i< _goals.Count; i++)
+            for (int i = 0; i < _goals.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {_goals[i].GetDetailString()}");
             }
+            Console.WriteLine();
         }
 
         private void ListGoalsDetails()
         {
+            Console.WriteLine();
             Console.WriteLine("The goals are:");
             ListGoalName();
             Console.WriteLine();
@@ -51,21 +55,33 @@ namespace EternalQuest
 
         private void CreateGoal()
         {
+            Console.WriteLine();
             Console.WriteLine("The types of Goals are:");
             Console.WriteLine(" 1. Simple Goal");
             Console.WriteLine(" 2. Eternal Goal");
             Console.WriteLine(" 3. Checklist Goal");
-            Console.Write("Which type of goal would you like to generate?");
+            Console.WriteLine();
+            Console.Write("Which type of goal would you like to create? ");
             string typeOfGoal = Console.ReadLine();
 
-            Console.Write("What is the name of your goal?");
+            Console.WriteLine();
+            Console.Write("What is the name of your goal? ");
             string name = Console.ReadLine();
 
-            Console.Write("What is a short description of your goal?");
+
+            Console.WriteLine();
+            Console.Write("What is a short description of your goal? ");
             string description = Console.ReadLine();
 
-            Console.Write("What is the amoubnt of points associated with this goal?");
-            int points = int.Parse(Console.ReadLine());
+
+            Console.WriteLine();
+            Console.Write("What is the amount of points associated with this goal? ");
+
+            int points;
+            while (!int.TryParse(Console.ReadLine(), out points))
+            {
+                Console.Write("Invalid number. Try again: ");
+            }
 
             Goal newGoal = null;
 
@@ -78,7 +94,7 @@ namespace EternalQuest
                     newGoal = new EternalGoal(name, description, points);
                     break;
                 case "3":
-                    Console.Write("How many times does this goal need to be completed for a bonus?");
+                    Console.Write("How many times does this goal need to be completed for a bonus? ");
                     int targetAmount = int.Parse(Console.ReadLine());
 
                     Console.Write("What is the bonus for completing this goal?");
@@ -98,10 +114,10 @@ namespace EternalQuest
         private void RecordEvent()
         {
             Console.WriteLine();
-            Console.WriteLine("The goals are:");
+            Console.WriteLine("The goals are: ");
             ListGoalName();
             Console.WriteLine();
-            Console.Write("Which goal did you complete?");
+            Console.Write("Which goal did you complete? ");
             int goalNumber = int.Parse(Console.ReadLine()) - 1;
 
             if (goalNumber >= 0 && goalNumber < _goals.Count)
@@ -110,7 +126,7 @@ namespace EternalQuest
 
                 if (goal.IsComplete())
                 {
-                    Console.WriteLine("This goal is already complete.");
+                    Console.WriteLine("This goal is already complete. ");
                     Console.WriteLine();
                 }
 
@@ -121,8 +137,8 @@ namespace EternalQuest
 
                     _score += pointsEarned;
 
-                    Console.WriteLine($"Congratulations! You have earned {pointsEarned} points!");
-                    Console.WriteLine($"You now have {_score} points.");
+                    Console.WriteLine($"Congratulations! You have earned {pointsEarned} points! ");
+                    Console.WriteLine($"You now have {_score} points. ");
 
                     /*
 
@@ -153,6 +169,7 @@ namespace EternalQuest
 
         private void SaveGoals()
         {
+            Console.WriteLine();
             Console.Write("What name you want for the saved file goals? ");
             string filename = Console.ReadLine();
 
@@ -170,7 +187,8 @@ namespace EternalQuest
 
         private void LoadGoals()
         {
-            Console.Write("What s the name of the file you want to load?");
+            Console.WriteLine();
+            Console.Write("What's the name of the file you want to load? ");
             string filename = Console.ReadLine();
             _goals.Clear();
 
@@ -211,13 +229,13 @@ namespace EternalQuest
 
                     }
 
-                    else if( type == "checklistGoal")
+                    else if( type == "ChecklistGoal")
                     {
                         string name = details[0];
                         string description = details[1];
                         int points = int.Parse(details[2]);
-                        int targetAmount = int.Parse(details[3]);
-                        int bonusAmount = int.Parse(details[4]);
+                        int bonusAmount = int.Parse(details[3]);
+                        int targetAmount = int.Parse(details[4]);
                         int amountCompleted = int.Parse(details[5]);
 
                         goal = new ChecklistGoal(name, description, points, targetAmount, bonusAmount, amountCompleted);
@@ -228,13 +246,15 @@ namespace EternalQuest
                         _goals.Add(goal);
                     }
                 }
-
-                Console.WriteLine("Goals Loadded Successfully.");
+                
+                Console.WriteLine();
+                Console.WriteLine("Goals Loaded Successfully.");
             }
         
             else
             {
                 Console.WriteLine("File not found!");
+                Console.WriteLine();
             }
 
         }

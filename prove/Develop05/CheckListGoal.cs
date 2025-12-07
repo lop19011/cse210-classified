@@ -79,7 +79,7 @@ namespace EternalQuest
 
         public override string GetStringRepresentation()
         {
-            return "ChecklistGoal:" + GetName() + "," + GetDescription() + "," + GetPoints() + "," + _bonusAmount + "," + _targetAmount + "," + _amountCompleted;
+            return $"ChecklistGoal:{GetName()}:{GetDescription()}:{GetPoints()}:{_bonusAmount}:{_targetAmount}:{_amountCompleted}";
         }
     }
 

@@ -14,6 +14,8 @@ namespace EternalQuest
             return false;
         }
 
+
+        // Added a blank RecordEvent for tracking
         public override void RecordEvent()
         {
             
@@ -32,7 +34,7 @@ namespace EternalQuest
 
         public override string GetStringRepresentation()
         {
-            return $"Eternal Goal: {GetName()}, {GetDescription()}, {GetPoints()}, {IsComplete()}";
+            return $"Eternal Goal: {GetName()}:{GetDescription()}:{GetPoints()}:{IsComplete()}";
         }
 
     }
