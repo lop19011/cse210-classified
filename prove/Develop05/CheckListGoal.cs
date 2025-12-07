@@ -2,7 +2,7 @@ using System;
 
 namespace EternalQuest
 {
-    public abstract class ChecklistGoal : Goal
+    public class ChecklistGoal : Goal
     {
         private int _amountCompleted;
         private int _targetAmount;
@@ -43,17 +43,21 @@ namespace EternalQuest
             }
         }
 
-        public int GetPointsForGoal()
+          public override int GetPointsEarned()
+
         {
             int points = GetPoints();
 
-            if (_amountCompleted >= _targetAmount)
+            if (_amountCompleted >= _targetAmount) 
             {
                 points = points + _bonusAmount;
-            }
+
+            } 
 
             return points;
+
         }
+        
 
          public override string GetDetailString()
         {
@@ -75,7 +79,7 @@ namespace EternalQuest
 
         public override string GetStringRepresentation()
         {
-            return $"Checklist Goal: {GetName()}, {GetDescription()}, {GetPoints()}, {IsComplete()}";
+            return "ChecklistGoal:" + GetName() + "," + GetDescription() + "," + GetPoints() + "," + _bonusAmount + "," + _targetAmount + "," + _amountCompleted;
         }
     }
 

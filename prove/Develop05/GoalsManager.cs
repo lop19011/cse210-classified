@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EternalQuest
 {
-    public abstract class GoalsManager : Goal
+    public class GoalsManager
     {
         private List<Goal> _goals;
         private int _score;
@@ -22,7 +22,7 @@ namespace EternalQuest
 
         private string DisplayMenu()
         {
-            Console.WriteLine("Menu Options; ");
+            Console.WriteLine("Menu Options: ");
             Console.WriteLine("1. Create New Goal");
             Console.WriteLine("2. List Goals");
             Console.WriteLine("3. Save Goals");
@@ -34,7 +34,7 @@ namespace EternalQuest
 
         }
 
-        private void ListGoalNAme()
+        private void ListGoalName()
         {
             for (int i = 0; i< _goals.Count; i++)
             {
@@ -45,16 +45,16 @@ namespace EternalQuest
         private void ListGoalsDetails()
         {
             Console.WriteLine("The goals are:");
-            ListGoalNAme();
+            ListGoalName();
             Console.WriteLine();
         }
 
         private void CreateGoal()
         {
             Console.WriteLine("The types of Goals are:");
-            Console.WriteLine("1. Siomple Goal");
-            Console.WriteLine("2. Eternal Goal");
-            Console.WriteLine("3. Checklist Goal");
+            Console.WriteLine(" 1. Simple Goal");
+            Console.WriteLine(" 2. Eternal Goal");
+            Console.WriteLine(" 3. Checklist Goal");
             Console.Write("Which type of goal would you like to generate?");
             string typeOfGoal = Console.ReadLine();
 
@@ -79,10 +79,10 @@ namespace EternalQuest
                     break;
                 case "3":
                     Console.Write("How many times does this goal need to be completed for a bonus?");
-                    int targetAmount = int.Parse(ConsoleReadLine());
+                    int targetAmount = int.Parse(Console.ReadLine());
 
                     Console.Write("What is the bonus for completing this goal?");
-                    int bonusAmount = int.Parse(ConsoleReadLine());
+                    int bonusAmount = int.Parse(Console.ReadLine());
 
                     newGoal = new ChecklistGoal(name, description, points, targetAmount, bonusAmount);
                     break;
@@ -97,11 +97,12 @@ namespace EternalQuest
 
         private void RecordEvent()
         {
+            Console.WriteLine();
             Console.WriteLine("The goals are:");
-            ListGoalNAme();
+            ListGoalName();
             Console.WriteLine();
             Console.Write("Which goal did you complete?");
-            int goalNumber = int.Parse(Console.ReadLine());
+            int goalNumber = int.Parse(Console.ReadLine()) - 1;
 
             if (goalNumber >= 0 && goalNumber < _goals.Count)
             {
@@ -110,12 +111,20 @@ namespace EternalQuest
                 if (goal.IsComplete())
                 {
                     Console.WriteLine("This goal is already complete.");
+                    Console.WriteLine();
                 }
 
                 else
                 {
                     goal.RecordEvent();
-                    int pointsEarned = 0;
+                    int pointsEarned = goal.GetPointsEarned();
+
+                    _score += pointsEarned;
+
+                    Console.WriteLine($"Congratulations! You have earned {pointsEarned} points!");
+                    Console.WriteLine($"You now have {_score} points.");
+
+                    /*
 
                     if (goal is SimpleGoal)
                     {
@@ -133,39 +142,102 @@ namespace EternalQuest
                     else if (goal is ChecklistGoal)
                     {
                         ChecklistGoal checklistGoal = (ChecklistGoal)goal;
-                        pointsEarned = checklistGoal.GetPointsForGoal();
+                        pointsEarned = checklistGoal.GetPointsEarned();
                     }
-                    _score += pointsEarned;
-                    Console.WriteLine($"Congratulations! You have earned {pointsEarned} points!");
-                    Console.WriteLine($"You now have {_score} points.");
+                    
+                    
+                    */
                 }
             }
         }
 
+        private void SaveGoals()
+        {
+            Console.Write("What name you want for the saved file goals? ");
+            string filename = Console.ReadLine();
 
+            using (StreamWriter outputFile = new StreamWriter(filename))
+            {
+                outputFile.WriteLine(_score);
 
+                foreach (Goal goal in _goals)
+                {
+                    outputFile.WriteLine(goal.GetStringRepresentation());
+                }
+            }
+            Console.WriteLine("Goals saved successfully.");
+        }
 
+        private void LoadGoals()
+        {
+            Console.Write("What s the name of the file you want to load?");
+            string filename = Console.ReadLine();
+            _goals.Clear();
 
+            if (File.Exists(filename))
+            {
+                string[] lines = File.ReadAllLines(filename);
 
+                _score = int.Parse(lines[0]);
+                _goals = new List<Goal>();
 
+                for (int i = 1; i < lines.Length; i++)
+                {
+                    string[] parts = lines[i].Split(":");
+                    string type = parts[0];
+                    string[] details = parts[1].Split(":");
 
+                    Goal goal = null;
+                
 
+                    if (type == "SimpleGoal")
+                    {
+                        string name = details[0];
+                        string description = details[1];
+                        int points = int.Parse(details[2]);
+                        bool isComplete = bool.Parse(details[3]);
 
+                        goal = new SimpleGoal(name, description, points, isComplete);
 
+                    }
 
+                    else if (type == "EternalGoal")
+                    {
+                        string name = details[0];
+                        string description = details[1];
+                        int points = int.Parse(details[2]);
 
+                        goal = new EternalGoal(name, description, points);
 
+                    }
 
+                    else if( type == "checklistGoal")
+                    {
+                        string name = details[0];
+                        string description = details[1];
+                        int points = int.Parse(details[2]);
+                        int targetAmount = int.Parse(details[3]);
+                        int bonusAmount = int.Parse(details[4]);
+                        int amountCompleted = int.Parse(details[5]);
 
+                        goal = new ChecklistGoal(name, description, points, targetAmount, bonusAmount, amountCompleted);
+                    }
 
+                    if (goal != null)
+                    {
+                        _goals.Add(goal);
+                    }
+                }
 
+                Console.WriteLine("Goals Loadded Successfully.");
+            }
+        
+            else
+            {
+                Console.WriteLine("File not found!");
+            }
 
-
-
-
-
-
-
+        }
 
         public void Run()
         {
@@ -202,6 +274,6 @@ namespace EternalQuest
             }
         }
 
-
     }
+    
 }

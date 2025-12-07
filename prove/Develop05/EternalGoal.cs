@@ -2,7 +2,7 @@ using System;
 
 namespace EternalQuest
 {
-    public abstract class EternalGoal : Goal
+    public class EternalGoal : Goal
     {
         public EternalGoal(string shortName, string description, int points) : base(shortName, description, points)
         {
@@ -18,6 +18,12 @@ namespace EternalQuest
         {
             
         }
+
+          public override int GetPointsEarned()
+        {
+            return GetPoints();
+        }
+
 
         public override string GetDetailString()
         {

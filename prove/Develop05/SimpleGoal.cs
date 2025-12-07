@@ -3,7 +3,7 @@ using System;
 namespace EternalQuest
 {
     
-    public abstract class SimpleGoal : Goal
+    public class SimpleGoal : Goal
     {
         private bool _isComplete;
 
@@ -21,6 +21,11 @@ namespace EternalQuest
         public override void RecordEvent()
         {
             _isComplete = true;
+        }
+
+        public override int GetPointsEarned()
+        {
+            return GetPoints();
         }
 
         public override string GetDetailString()

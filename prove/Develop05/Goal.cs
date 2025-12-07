@@ -34,6 +34,7 @@ namespace EternalQuest
         public abstract void RecordEvent();
         public abstract string GetDetailString();
         public abstract string GetStringRepresentation();
+        public abstract int GetPointsEarned();
 
 
     }
