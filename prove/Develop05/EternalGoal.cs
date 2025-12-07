@@ -34,7 +34,7 @@ namespace EternalQuest
 
         public override string GetStringRepresentation()
         {
-            return $"Eternal Goal: {GetName()}:{GetDescription()}:{GetPoints()}:{IsComplete()}";
+            return $"EternalGoal:{GetName()}:{GetDescription()}:{GetPoints()}:{IsComplete()}";
         }
 
     }

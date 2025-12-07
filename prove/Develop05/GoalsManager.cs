@@ -185,79 +185,100 @@ namespace EternalQuest
             Console.WriteLine("Goals saved successfully.");
         }
 
+
+
+
+
         private void LoadGoals()
         {
             Console.WriteLine();
             Console.Write("What's the name of the file you want to load? ");
             string filename = Console.ReadLine();
-            _goals.Clear();
 
-            if (File.Exists(filename))
-            {
-                string[] lines = File.ReadAllLines(filename);
-
-                _score = int.Parse(lines[0]);
-                _goals = new List<Goal>();
-
-                for (int i = 1; i < lines.Length; i++)
-                {
-                    string[] parts = lines[i].Split(":");
-                    string type = parts[0];
-                    string[] details = parts[1].Split(":");
-
-                    Goal goal = null;
-                
-
-                    if (type == "SimpleGoal")
-                    {
-                        string name = details[0];
-                        string description = details[1];
-                        int points = int.Parse(details[2]);
-                        bool isComplete = bool.Parse(details[3]);
-
-                        goal = new SimpleGoal(name, description, points, isComplete);
-
-                    }
-
-                    else if (type == "EternalGoal")
-                    {
-                        string name = details[0];
-                        string description = details[1];
-                        int points = int.Parse(details[2]);
-
-                        goal = new EternalGoal(name, description, points);
-
-                    }
-
-                    else if( type == "ChecklistGoal")
-                    {
-                        string name = details[0];
-                        string description = details[1];
-                        int points = int.Parse(details[2]);
-                        int bonusAmount = int.Parse(details[3]);
-                        int targetAmount = int.Parse(details[4]);
-                        int amountCompleted = int.Parse(details[5]);
-
-                        goal = new ChecklistGoal(name, description, points, targetAmount, bonusAmount, amountCompleted);
-                    }
-
-                    if (goal != null)
-                    {
-                        _goals.Add(goal);
-                    }
-                }
-                
-                Console.WriteLine();
-                Console.WriteLine("Goals Loaded Successfully.");
-            }
-        
-            else
+            if (!File.Exists(filename))
             {
                 Console.WriteLine("File not found!");
-                Console.WriteLine();
+                return;
             }
 
-        }
+            string[] lines = File.ReadAllLines(filename);
+
+            if (lines.Length == 0) 
+            {
+                Console.WriteLine("File is empty!");
+                return;
+            }
+
+            _goals.Clear();
+
+            
+            _score = int.Parse(lines[0]);
+
+           
+            for (int i = 1; i < lines.Length; i++)
+            {
+                string line = lines[i];
+
+                int firstColon = line.IndexOf(':');
+                if (firstColon == -1)          
+                {
+                    Console.WriteLine($"Skipping invalid line: {line}");
+                    continue;
+                }
+
+                string type = line.Substring(0, firstColon);  
+                string rest = line.Substring(firstColon + 1); 
+
+                try
+                {
+                    if (type == "SimpleGoal")
+                    {
+                        string[] parts = rest.Split(new char[] { ':' }, 4); 
+
+                        string name = parts[0];
+                        string description = parts[1];
+                        int points = int.Parse(parts[2]);
+                        bool isComplete = bool.Parse(parts[3]);
+
+                        _goals.Add(new SimpleGoal(name, description, points, isComplete));
+                    }
+                    else if (type == "EternalGoal")
+                    {
+                        string[] parts = rest.Split(new char[] { ':' }, 3); 
+
+                        string name = parts[0];
+                        string description = parts[1];
+                        int points = int.Parse(parts[2]);
+
+                        _goals.Add(new EternalGoal(name, description, points));
+                    }
+                    else if (type == "ChecklistGoal")
+                    {
+                        string[] parts = rest.Split(new char[] { ':' }, 6); 
+
+                        string name = parts[0];          
+                        string description = parts[1];  
+                        int points = int.Parse(parts[2]); 
+                        int targetAmount = int.Parse(parts[3]);
+                        int bonusAmount = int.Parse(parts[4]);
+                        int amountCompleted = int.Parse(parts[5]);
+
+                        _goals.Add(new ChecklistGoal(name, description, points, targetAmount, bonusAmount, amountCompleted));
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Unknown goal type: {type}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error loading goal from line: {line}");
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            Console.WriteLine("Goals Loaded Successfully.");
+}
 
         public void Run()
         {
