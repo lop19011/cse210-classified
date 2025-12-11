@@ -140,29 +140,6 @@ namespace EternalQuest
                     Console.WriteLine($"Congratulations! You have earned {pointsEarned} points! ");
                     Console.WriteLine($"You now have {_score} points. ");
 
-                    /*
-
-                    if (goal is SimpleGoal)
-                    {
-                        SimpleGoal simpleGoal = (SimpleGoal)goal;
-                        pointsEarned = simpleGoal.GetPoints();
-
-                    }
-
-                    else if (goal is EternalGoal)
-                    {
-                        EternalGoal eternalGoal = (EternalGoal)goal;
-                        pointsEarned = eternalGoal.GetPoints();
-                    }
-
-                    else if (goal is ChecklistGoal)
-                    {
-                        ChecklistGoal checklistGoal = (ChecklistGoal)goal;
-                        pointsEarned = checklistGoal.GetPointsEarned();
-                    }
-                    
-                    
-                    */
                 }
             }
         }
