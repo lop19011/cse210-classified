@@ -39,13 +39,12 @@ namespace Foundation2
             return _country;
         }
 
-        //Abstraction - check if address is in USA
+        //Abstraction:  (1st check if address is in USA)
         public bool IsInUSA()
         {
             return _country.ToUpper() == "USA" || _country.ToUpper() == "UNITED STATES";
 
         }
-        //Abstraction
         public string GetFullAddress()
         {
             return $"{_streetAddress}\n{_city}, {_stateProvince}\n{_country}";

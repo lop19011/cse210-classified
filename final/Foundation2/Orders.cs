@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic; // Found that in order to use List<>, I need to call System.Collections.Generic. Source: https://stackoverflow.com/questions/44767551/cant-make-any-list-in-c-sharp
 
 namespace Foundation2
 {
@@ -57,7 +58,7 @@ namespace Foundation2
 
                 foreach (Product product in _products)
                 {
-                    label += $"PRoduct Name: {product.GetName()}, Product ID: {product.GetProductId()}\n";
+                    label += $"Poduct Name: {product.GetName()}, Product ID: {product.GetProductId()}\n";
                 }
 
                 return label;

@@ -11,10 +11,10 @@ namespace Foundation2
 
         //Constructor:
 
-        public Product(string name, string ProductId, double pricePerUnit, int quantity)
+        public Product(string name, string productId, double pricePerUnit, int quantity)
         {
             _name = name;
-            _productId = ProductId;
+            _productId = productId;
             _pricePerUnit = pricePerUnit;
             _quantity = quantity;
 
