@@ -54,8 +54,8 @@ namespace Foundation3
         public string GetStandardDetails()
        
         {
-            string details = "STANDARD EVENT DETAILS\n";
-            details += $"Title: {_title}\n";
+
+            string details = $"Title: {_title}\n";
             details += $"Description: {_description}\n";
             details += $"Date: {_date}\n";
             details += $"Time: {_time}\n";
